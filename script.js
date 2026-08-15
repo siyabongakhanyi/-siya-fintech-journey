@@ -44,8 +44,8 @@ function findActiveWeek(now, roadmap){
 
 // ---------- Roadmap state calculator ----------
 function calculateRoadmapState(now, roadmap){
-  // default bounds
-  const state={pctComplete:0,daysLeft:null,currentPhase:'Preparation',currentPhaseId:null,currentWeekIndex:null,totalWeeks:0,phaseProgressPct:0,phase:null,currentFocus:undefined};
+  // default bounds and state shape
+  const state={pctComplete:0,daysLeft:null,currentPhase:'Preparation',currentPhaseId:null,currentWeek:null,currentWeekIndex:null,totalWeeks:0,phaseProgressPct:0,phase:null,currentFocus:undefined};
   const roadmapStart = roadmap && roadmap.start ? new Date(roadmap.start+'T00:00:00') : new Date('2026-09-01T00:00:00');
   const roadmapEnd = roadmap && roadmap.end ? new Date(roadmap.end+'T23:59:59') : new Date('2026-12-31T23:59:59');
 
@@ -71,6 +71,7 @@ function calculateRoadmapState(now, roadmap){
     state.phase = phase;
     state.totalWeeks = Array.isArray(phase.weeks) ? phase.weeks.length : (phase.weeks || 0);
     state.currentWeekIndex = wk.week_number || (explicit.weekIndex + 1);
+    state.currentWeek = wk; // full week object
     state.currentFocus = wk.focus || (Array.isArray(wk.topic) ? wk.topic[0] : undefined);
     // compute phase progress based on phase.start/end if available
     if(phase.start && phase.end){
@@ -93,18 +94,22 @@ function calculateRoadmapState(now, roadmap){
           for(let wIndex=0; wIndex<phase.weeks.length; wIndex++){
             const wk = phase.weeks[wIndex]; if(!wk || !wk.start || !wk.end) continue;
             const wStart = new Date(wk.start+'T00:00:00').getTime(); const wEnd = new Date(wk.end+'T23:59:59').getTime();
-            if(nowTime >= wStart && nowTime <= wEnd){ found = wk; state.currentWeekIndex = wk.week_number || (wIndex+1); state.currentFocus = wk.focus || (Array.isArray(wk.topic)?wk.topic[0]:undefined); break; }
+            if(nowTime >= wStart && nowTime <= wEnd){ found = wk; state.currentWeek = wk; state.currentWeekIndex = wk.week_number || (wIndex+1); state.currentFocus = wk.focus || (Array.isArray(wk.topic)?wk.topic[0]:undefined); break; }
           }
           if(!found){ // approximate
             const daysInto=Math.floor((now-ps)/(1000*60*60*24));
             const weekIndex=Math.min(state.totalWeeks, Math.floor(daysInto/7)+1);
             state.currentWeekIndex=weekIndex;
+            // if phase.weeks present but no exact week matched, attempt to derive a week object from nearest index
+            const derived = phase.weeks[weekIndex-1] || null; state.currentWeek = derived;
+            state.currentFocus = derived ? (derived.focus || (Array.isArray(derived.topic)?derived.topic[0]:undefined)) : undefined;
           }
         } else {
-          // fallback by days into phase
+          // fallback by days into phase when no weeks array present
           const daysInto=Math.floor((now-ps)/(1000*60*60*24));
           const weekIndex=Math.min(state.totalWeeks, Math.floor(daysInto/7)+1);
           state.currentWeekIndex=weekIndex;
+          state.currentWeek = null;
         }
         // phase progress
         const phasePct=Math.round(((now-ps)/(pe-ps))*100);
@@ -115,7 +120,7 @@ function calculateRoadmapState(now, roadmap){
   }
 
   // if after roadmap end, ensure values
-  if(now > roadmapEnd){ state.pctComplete=100; state.currentPhase='Roadmap Complete'; state.currentWeekIndex=null }
+  if(now > roadmapEnd){ state.pctComplete=100; state.currentPhase='Roadmap Complete'; state.currentWeekIndex=null; state.currentWeek=null }
   return state;
 }
 
