@@ -17,7 +17,6 @@
         "QR+",
         "ISO 20022"
       ],
-      "weeks": 4,
       "weeks": [
         {
           "id": "sep-w1",
@@ -25,11 +24,33 @@
           "start": "2026-09-01",
           "end": "2026-09-06",
           "focus": "South African Payments Ecosystem",
-          "capabilities": ["Payment Infrastructure","Customer Experience"],
+          "capabilities": [
+            "Payment Infrastructure",
+            "Customer Experience",
+            "Operating Model"
+          ],
           "sessions": [
-            {"date":"2026-09-01","day":"Tuesday","type":"study","topic":"South African payments ecosystem","artifact":"South African Payments Ecosystem Map"},
-            {"date":"2026-09-03","day":"Thursday","type":"lab","topic":"Map participant, information and funds flows","artifact":"Payments Ecosystem Map v2"},
-            {"date":"2026-09-06","day":"Sunday","type":"ship","topic":"Audit and polish ecosystem understanding","artifact":"Participant Map + Glossary"}
+            {
+              "date": "2026-09-01",
+              "day": "Tuesday",
+              "type": "study",
+              "topic": "South African payments ecosystem, participants, schemes, clearing and settlement",
+              "artifact": "South African Payments Ecosystem Map"
+            },
+            {
+              "date": "2026-09-03",
+              "day": "Thursday",
+              "type": "lab",
+              "topic": "Map participant, information, processing and funds flows",
+              "artifact": "Payments Ecosystem Map v2"
+            },
+            {
+              "date": "2026-09-06",
+              "day": "Sunday",
+              "type": "ship",
+              "topic": "Audit participant boundaries and polish ecosystem understanding",
+              "artifact": "Participant Map + Glossary"
+            }
           ]
         },
         {
@@ -37,12 +58,34 @@
           "week_number": 2,
           "start": "2026-09-08",
           "end": "2026-09-13",
-          "focus": "Card Lifecycle",
-          "capabilities": ["Payment Infrastructure","Technical Architecture"],
+          "focus": "Card Payment Lifecycle",
+          "capabilities": [
+            "Payment Infrastructure",
+            "Technical Architecture",
+            "Customer Experience"
+          ],
           "sessions": [
-            {"date":"2026-09-08","day":"Tuesday","type":"study","topic":"Card lifecycle events","artifact":"Card lifecycle notes"},
-            {"date":"2026-09-10","day":"Thursday","type":"lab","topic":"Failure mode mapping","artifact":"Card Lifecycle + Failure Atlas"},
-            {"date":"2026-09-13","day":"Sunday","type":"ship","topic":"Publish lifecycle atlas summary","artifact":"Card Lifecycle Atlas (summary)"}
+            {
+              "date": "2026-09-08",
+              "day": "Tuesday",
+              "type": "study",
+              "topic": "Initiation, authentication, authorisation, capture, clearing, settlement and reconciliation",
+              "artifact": "Card Payment Lifecycle Study Map"
+            },
+            {
+              "date": "2026-09-10",
+              "day": "Thursday",
+              "type": "lab",
+              "topic": "Build end-to-end card sequence and add failure branches",
+              "artifact": "Card Lifecycle + Failure Atlas"
+            },
+            {
+              "date": "2026-09-13",
+              "day": "Sunday",
+              "type": "ship",
+              "topic": "Explain authorisation versus settlement and polish lifecycle model",
+              "artifact": "Card Payment Lifecycle Explainer"
+            }
           ]
         },
         {
@@ -50,12 +93,35 @@
           "week_number": 3,
           "start": "2026-09-15",
           "end": "2026-09-20",
-          "focus": "Payment Exceptions & Failures",
-          "capabilities": ["Payment Infrastructure","Operating Model"],
+          "focus": "Payment Exceptions",
+          "capabilities": [
+            "Payment Infrastructure",
+            "Operating Model",
+            "Risk & Controls",
+            "Customer Experience"
+          ],
           "sessions": [
-            {"date":"2026-09-15","day":"Tuesday","type":"study","topic":"Exception categories & signals","artifact":"Exception handling notes"},
-            {"date":"2026-09-17","day":"Thursday","type":"lab","topic":"Map owners and remediation","artifact":"Payment Exception Handling Matrix"},
-            {"date":"2026-09-20","day":"Sunday","type":"ship","topic":"Publish exception matrix","artifact":"Payment Exception Handling Matrix (public)"}
+            {
+              "date": "2026-09-15",
+              "day": "Tuesday",
+              "type": "study",
+              "topic": "Declines, timeouts, duplicates, reversals, refunds, chargebacks and unknown states",
+              "artifact": "Payment Exception Tree"
+            },
+            {
+              "date": "2026-09-17",
+              "day": "Thursday",
+              "type": "lab",
+              "topic": "Map detection, system action, operations owner, customer message and escalation",
+              "artifact": "Payment Exception Handling Matrix"
+            },
+            {
+              "date": "2026-09-20",
+              "day": "Sunday",
+              "type": "ship",
+              "topic": "Review exceptions through customer, operations and control lenses",
+              "artifact": "Final Exception Handling Matrix"
+            }
           ]
         },
         {
@@ -64,11 +130,70 @@
           "start": "2026-09-22",
           "end": "2026-09-27",
           "focus": "Settlement & Reconciliation",
-          "capabilities": ["Payment Infrastructure","Technical Architecture","Operating Model"],
+          "capabilities": [
+            "Payment Infrastructure",
+            "Technical Architecture",
+            "Operating Model",
+            "Risk & Controls"
+          ],
           "sessions": [
-            {"date":"2026-09-22","day":"Tuesday","type":"study","topic":"Clearing and settlement timing","artifact":"Settlement timing notes"},
-            {"date":"2026-09-24","day":"Thursday","type":"lab","topic":"Reconciliation record mappings","artifact":"Settlement & Reconciliation Case Model"},
-            {"date":"2026-09-27","day":"Sunday","type":"ship","topic":"Consolidate September pack","artifact":"September Payments Foundations Pack"}
+            {
+              "date": "2026-09-22",
+              "day": "Tuesday",
+              "type": "study",
+              "topic": "Clearing records, settlement, merchant settlement, ledgers, reconciliation and exception queues",
+              "artifact": "Settlement & Reconciliation Workflow"
+            },
+            {
+              "date": "2026-09-24",
+              "day": "Thursday",
+              "type": "lab",
+              "topic": "Investigate synthetic reconciliation breaks and mismatches",
+              "artifact": "Settlement & Reconciliation Case Model"
+            },
+            {
+              "date": "2026-09-27",
+              "day": "Sunday",
+              "type": "ship",
+              "topic": "Integrate ecosystem, lifecycle, exceptions, settlement and reconciliation",
+              "artifact": "September Payments Foundations Pack"
+            }
+          ]
+        },
+        {
+          "id": "sep-w5",
+          "week_number": 5,
+          "start": "2026-09-29",
+          "end": "2026-10-04",
+          "focus": "Modern South African Payments",
+          "capabilities": [
+            "Payment Infrastructure",
+            "Technical Architecture",
+            "Customer Experience",
+            "Operating Model"
+          ],
+          "sessions": [
+            {
+              "date": "2026-09-29",
+              "day": "Tuesday",
+              "type": "study",
+              "topic": "PayShap, Rapid Payments Programme, ShapID, QR+, interoperability and ISO 20022",
+              "artifact": "Card vs Instant Account-to-Account Comparison Map"
+            },
+            {
+              "date": "2026-10-01",
+              "day": "Thursday",
+              "type": "lab",
+              "topic": "Compare card, PayShap/A2A and QR+ and choose prototype scope",
+              "artifact": "Payments Prototype Brief + Architecture Sketch"
+            },
+            {
+              "date": "2026-10-04",
+              "day": "Sunday",
+              "type": "ship",
+              "topic": "Finalise prototype problem, scope, non-goals and success criteria",
+              "artifact": "October Prototype Project Skeleton"
+            }
           ]
         }
       ]
@@ -88,58 +213,144 @@
         "Payment data models",
         "Reconciliation prototype"
       ],
-      "weeks": 4,
       "weeks": [
         {
-          "id": "oct-w1",
-          "week_number": 1,
+          "id": "oct-w6",
+          "week_number": 6,
           "start": "2026-10-06",
           "end": "2026-10-11",
-          "focus": "API fundamentals & auth",
-          "capabilities": ["Technical Architecture"],
+          "focus": "Payment APIs",
+          "capabilities": [
+            "Technical Architecture",
+            "Payment Infrastructure"
+          ],
           "sessions": [
-            {"date":"2026-10-06","day":"Tuesday","type":"study","topic":"Payment API resources & auth models","artifact":"API fundamentals notes"},
-            {"date":"2026-10-08","day":"Thursday","type":"lab","topic":"Implement auth + idempotency","artifact":"API Sandbox Prototype (v0)"},
-            {"date":"2026-10-11","day":"Sunday","type":"ship","topic":"Publish API sandbox initial","artifact":"API Sandbox Commit — initial"}
+            {
+              "date": "2026-10-06",
+              "day": "Tuesday",
+              "type": "study",
+              "topic": "REST, endpoints, requests, responses, authentication, secrets, idempotency and status codes",
+              "artifact": "Annotated Payment API Flow"
+            },
+            {
+              "date": "2026-10-08",
+              "day": "Thursday",
+              "type": "lab",
+              "topic": "Initialise payment, verify status and document safe request/response examples",
+              "artifact": "First Payment API Call + README"
+            },
+            {
+              "date": "2026-10-11",
+              "day": "Sunday",
+              "type": "ship",
+              "topic": "Document integration, authentication, idempotency, errors and user impact",
+              "artifact": "API Integration Note + Updated Architecture"
+            }
           ]
         },
         {
-          "id": "oct-w2",
-          "week_number": 2,
+          "id": "oct-w7",
+          "week_number": 7,
           "start": "2026-10-13",
           "end": "2026-10-18",
-          "focus": "Idempotency & Webhooks",
-          "capabilities": ["Technical Architecture"],
+          "focus": "Webhooks & Asynchronous Payments",
+          "capabilities": [
+            "Technical Architecture",
+            "Payment Infrastructure",
+            "Risk & Controls"
+          ],
           "sessions": [
-            {"date":"2026-10-13","day":"Tuesday","type":"study","topic":"Idempotency patterns","artifact":"Idempotency notes"},
-            {"date":"2026-10-15","day":"Thursday","type":"lab","topic":"Webhook handling & replay protection","artifact":"Webhook handler prototype"},
-            {"date":"2026-10-18","day":"Sunday","type":"ship","topic":"Publish webhook examples","artifact":"Webhook samples pack"}
+            {
+              "date": "2026-10-13",
+              "day": "Tuesday",
+              "type": "study",
+              "topic": "Event-driven payments, retries, signatures, duplicates and eventual consistency",
+              "artifact": "Webhook Sequence Diagram"
+            },
+            {
+              "date": "2026-10-15",
+              "day": "Thursday",
+              "type": "lab",
+              "topic": "Handle webhook payloads, verification, retries and duplicate protection",
+              "artifact": "Webhook Handler / Flow + Test Cases"
+            },
+            {
+              "date": "2026-10-18",
+              "day": "Sunday",
+              "type": "ship",
+              "topic": "Test delayed, duplicate, failed and out-of-order events",
+              "artifact": "Webhook Test Evidence + Failure Notes"
+            }
           ]
         },
         {
-          "id": "oct-w3",
-          "week_number": 3,
+          "id": "oct-w8",
+          "week_number": 8,
           "start": "2026-10-20",
           "end": "2026-10-25",
-          "focus": "Transaction states & state machines",
-          "capabilities": ["Technical Architecture"],
+          "focus": "Transaction State Machines",
+          "capabilities": [
+            "Technical Architecture",
+            "Risk & Controls",
+            "Operating Model"
+          ],
           "sessions": [
-            {"date":"2026-10-20","day":"Tuesday","type":"study","topic":"Transaction state taxonomy","artifact":"State taxonomy notes"},
-            {"date":"2026-10-22","day":"Thursday","type":"lab","topic":"Model state transitions","artifact":"Transaction State Machine"},
-            {"date":"2026-10-25","day":"Sunday","type":"ship","topic":"Publish state machine diagram","artifact":"Transaction State Machine diagram"}
+            {
+              "date": "2026-10-20",
+              "day": "Tuesday",
+              "type": "study",
+              "topic": "Initiated, pending, authorised, successful, failed, reversed and refunded states",
+              "artifact": "Transaction State Model"
+            },
+            {
+              "date": "2026-10-22",
+              "day": "Thursday",
+              "type": "lab",
+              "topic": "Model valid and invalid transitions, recovery paths and compensating actions",
+              "artifact": "State Machine Implementation / Model"
+            },
+            {
+              "date": "2026-10-25",
+              "day": "Sunday",
+              "type": "ship",
+              "topic": "Identify invalid transitions and escalation gaps",
+              "artifact": "State Machine v2 + Decision Table"
+            }
           ]
         },
         {
-          "id": "oct-w4",
-          "week_number": 4,
+          "id": "oct-w9",
+          "week_number": 9,
           "start": "2026-10-27",
           "end": "2026-11-01",
-          "focus": "Payment data models & reconciliation prototype",
-          "capabilities": ["Technical Architecture","Payment Infrastructure"],
+          "focus": "Payment Data Model & Technical Integration",
+          "capabilities": [
+            "Technical Architecture",
+            "Payment Infrastructure",
+            "Operating Model"
+          ],
           "sessions": [
-            {"date":"2026-10-27","day":"Tuesday","type":"study","topic":"Payment data model design","artifact":"Data model notes"},
-            {"date":"2026-10-29","day":"Thursday","type":"lab","topic":"Prototype reconciliation flow","artifact":"Reconciliation prototype"},
-            {"date":"2026-11-01","day":"Sunday","type":"ship","topic":"Publish reconciliation POC summary","artifact":"Reconciliation prototype summary"}
+            {
+              "date": "2026-10-27",
+              "day": "Tuesday",
+              "type": "study",
+              "topic": "Customers, merchants, transactions, payment attempts, events, refunds, settlements and reconciliation records",
+              "artifact": "Payment ER / Data Model"
+            },
+            {
+              "date": "2026-10-29",
+              "day": "Thursday",
+              "type": "lab",
+              "topic": "Create synthetic transaction, event, refund and settlement datasets and reconciliation queries",
+              "artifact": "ER Model + Synthetic Dataset / Queries"
+            },
+            {
+              "date": "2026-11-01",
+              "day": "Sunday",
+              "type": "ship",
+              "topic": "Integrate API, webhook, state machine and data model",
+              "artifact": "October Technical Payments Pack"
+            }
           ]
         }
       ]
@@ -161,58 +372,142 @@
         "Sensitivity analysis",
         "Executive metrics"
       ],
-      "weeks": 4,
       "weeks": [
         {
-          "id": "nov-w1",
-          "week_number": 1,
+          "id": "nov-w10",
+          "week_number": 10,
           "start": "2026-11-03",
           "end": "2026-11-08",
-          "focus": "Transaction economics & TPV",
-          "capabilities": ["Commercial Economics"],
+          "focus": "Revenue Models & Mini-P&L",
+          "capabilities": [
+            "Commercial Economics"
+          ],
           "sessions": [
-            {"date":"2026-11-03","day":"Tuesday","type":"study","topic":"TPV and revenue levers","artifact":"TPV notes"},
-            {"date":"2026-11-05","day":"Thursday","type":"lab","topic":"Construct merchant mini P&L","artifact":"Mini P&L workbook (draft)"},
-            {"date":"2026-11-08","day":"Sunday","type":"ship","topic":"Publish mini P&L workbook","artifact":"Merchant Payments Mini-P&L — Ship"}
+            {
+              "date": "2026-11-03",
+              "day": "Tuesday",
+              "type": "study",
+              "topic": "TPV, transaction count, take rate, pricing structures, processing costs and revenue models",
+              "artifact": "Revenue Model Cheat Sheet"
+            },
+            {
+              "date": "2026-11-05",
+              "day": "Thursday",
+              "type": "lab",
+              "topic": "Build merchant mini-P&L and calculate contribution margin",
+              "artifact": "Merchant Payments Mini-P&L"
+            },
+            {
+              "date": "2026-11-08",
+              "day": "Sunday",
+              "type": "ship",
+              "topic": "Audit formulas and identify key margin drivers",
+              "artifact": "Mini-P&L v2 + Five Commercial Insights"
+            }
           ]
         },
         {
-          "id": "nov-w2",
-          "week_number": 2,
+          "id": "nov-w11",
+          "week_number": 11,
           "start": "2026-11-10",
           "end": "2026-11-15",
-          "focus": "Take rate & Pricing",
-          "capabilities": ["Commercial Economics","Operating Model"],
+          "focus": "Sensitivity Analysis",
+          "capabilities": [
+            "Commercial Economics",
+            "Risk & Controls"
+          ],
           "sessions": [
-            {"date":"2026-11-10","day":"Tuesday","type":"study","topic":"Take rate sensitivity","artifact":"Take rate notes"},
-            {"date":"2026-11-12","day":"Thursday","type":"lab","topic":"Pricing scenario modelling","artifact":"Pricing scenarios"},
-            {"date":"2026-11-15","day":"Sunday","type":"ship","topic":"Publish pricing analysis summary","artifact":"Pricing analysis pack"}
+            {
+              "date": "2026-11-10",
+              "day": "Tuesday",
+              "type": "study",
+              "topic": "Base, upside and downside scenarios across volume, success rate, take rate and costs",
+              "artifact": "Sensitivity Formula Sheet"
+            },
+            {
+              "date": "2026-11-12",
+              "day": "Thursday",
+              "type": "lab",
+              "topic": "Build three commercial scenarios",
+              "artifact": "Base / Upside / Downside Model"
+            },
+            {
+              "date": "2026-11-15",
+              "day": "Sunday",
+              "type": "ship",
+              "topic": "Identify the three biggest viability drivers",
+              "artifact": "Sensitivity Summary"
+            }
           ]
         },
         {
-          "id": "nov-w3",
-          "week_number": 3,
+          "id": "nov-w12",
+          "week_number": 12,
           "start": "2026-11-17",
           "end": "2026-11-22",
-          "focus": "Fraud, processing costs & sensitivity",
-          "capabilities": ["Commercial Economics","Risk & Controls"],
+          "focus": "Pricing Strategy",
+          "capabilities": [
+            "Commercial Economics",
+            "Customer Experience",
+            "Operating Model"
+          ],
           "sessions": [
-            {"date":"2026-11-17","day":"Tuesday","type":"study","topic":"Fraud loss modelling","artifact":"Fraud modelling notes"},
-            {"date":"2026-11-19","day":"Thursday","type":"lab","topic":"Processing cost estimation","artifact":"Processing cost model"},
-            {"date":"2026-11-22","day":"Sunday","type":"ship","topic":"Publish sensitivity results","artifact":"Pricing + Sensitivity Decision"}
+            {
+              "date": "2026-11-17",
+              "day": "Tuesday",
+              "type": "study",
+              "topic": "Percentage, fixed, hybrid and tiered pricing, willingness to pay and competitive constraints",
+              "artifact": "Pricing Strategy Comparison"
+            },
+            {
+              "date": "2026-11-19",
+              "day": "Thursday",
+              "type": "lab",
+              "topic": "Compare three pricing structures and select one using the commercial model",
+              "artifact": "Pricing Decision Model"
+            },
+            {
+              "date": "2026-11-22",
+              "day": "Sunday",
+              "type": "ship",
+              "topic": "Pressure-test pricing through customer, merchant, competitor, risk and economics lenses",
+              "artifact": "Pricing + Sensitivity Decision Memo"
+            }
           ]
         },
         {
-          "id": "nov-w4",
-          "week_number": 4,
+          "id": "nov-w13",
+          "week_number": 13,
           "start": "2026-11-24",
           "end": "2026-11-29",
-          "focus": "Contribution margin & executive metrics",
-          "capabilities": ["Commercial Economics"],
+          "focus": "Payments Product Metrics",
+          "capabilities": [
+            "Commercial Economics",
+            "Technical Architecture",
+            "Customer Experience"
+          ],
           "sessions": [
-            {"date":"2026-11-24","day":"Tuesday","type":"study","topic":"Contribution margin basics","artifact":"Contribution margin notes"},
-            {"date":"2026-11-26","day":"Thursday","type":"lab","topic":"Assemble executive metrics dashboard","artifact":"Metrics dashboard draft"},
-            {"date":"2026-11-29","day":"Sunday","type":"ship","topic":"Publish executive metrics summary","artifact":"Executive metrics pack"}
+            {
+              "date": "2026-11-24",
+              "day": "Tuesday",
+              "type": "study",
+              "topic": "Adoption, conversion, authorisation, reliability, refunds, fraud, cost and retention metrics",
+              "artifact": "Fintech KPI Tree"
+            },
+            {
+              "date": "2026-11-26",
+              "day": "Thursday",
+              "type": "lab",
+              "topic": "Define metrics, data requirements and sample query logic",
+              "artifact": "Executive KPI Dashboard Wireframe + Metric Dictionary"
+            },
+            {
+              "date": "2026-11-29",
+              "day": "Sunday",
+              "type": "ship",
+              "topic": "Integrate P&L, pricing and product metrics",
+              "artifact": "November Commercial Fintech Pack"
+            }
           ]
         }
       ]
@@ -232,58 +527,178 @@
         "Strategic recommendation",
         "Flagship public case study"
       ],
-      "weeks": 4,
       "weeks": [
         {
-          "id": "dec-w1",
-          "week_number": 1,
+          "id": "dec-w14",
+          "week_number": 14,
           "start": "2026-12-01",
           "end": "2026-12-06",
-          "focus": "Experience & Operating Model",
-          "capabilities": ["Customer Experience","Operating Model"],
+          "focus": "Flagship Case Framing",
+          "capabilities": [
+            "Customer Experience",
+            "Operating Model",
+            "Payment Infrastructure",
+            "Commercial Economics"
+          ],
           "sessions": [
-            {"date":"2026-12-01","day":"Tuesday","type":"study","topic":"Customer experience synthesis","artifact":"Experience notes"},
-            {"date":"2026-12-03","day":"Thursday","type":"lab","topic":"Map operating model changes","artifact":"Operating model draft"},
-            {"date":"2026-12-06","day":"Sunday","type":"ship","topic":"Publish experience + operating model summary","artifact":"Experience + Operating Model pack"}
+            {
+              "date": "2026-12-01",
+              "day": "Tuesday",
+              "type": "study",
+              "topic": "Define a credible South African fintech problem, actors, constraints, assumptions and decision question",
+              "artifact": "One-Page Flagship Case Brief"
+            },
+            {
+              "date": "2026-12-03",
+              "day": "Thursday",
+              "type": "lab",
+              "topic": "Build problem statement, hypotheses, scope, non-goals and decision criteria",
+              "artifact": "Flagship Case Opening Section"
+            },
+            {
+              "date": "2026-12-06",
+              "day": "Sunday",
+              "type": "ship",
+              "topic": "Confirm that the case is systemic and strategic rather than a UI redesign",
+              "artifact": "Case Brief v2"
+            }
           ]
         },
         {
-          "id": "dec-w2",
-          "week_number": 2,
+          "id": "dec-w15",
+          "week_number": 15,
           "start": "2026-12-08",
           "end": "2026-12-13",
-          "focus": "Architecture & Payment flow",
-          "capabilities": ["Technical Architecture","Payment Infrastructure"],
+          "focus": "Customer Experience & Operating Model",
+          "capabilities": [
+            "Customer Experience",
+            "Operating Model",
+            "Risk & Controls"
+          ],
           "sessions": [
-            {"date":"2026-12-08","day":"Tuesday","type":"study","topic":"Architecture synthesis","artifact":"Architecture notes"},
-            {"date":"2026-12-10","day":"Thursday","type":"lab","topic":"Payment infrastructure mapping","artifact":"Payment infra diagram"},
-            {"date":"2026-12-13","day":"Sunday","type":"ship","topic":"Publish architecture + infra summary","artifact":"Architecture summary"}
+            {
+              "date": "2026-12-08",
+              "day": "Tuesday",
+              "type": "study",
+              "topic": "Journey, service blueprint, frontstage, backstage, teams, ownership, handoffs and exceptions",
+              "artifact": "Service Blueprint Draft"
+            },
+            {
+              "date": "2026-12-10",
+              "day": "Thursday",
+              "type": "lab",
+              "topic": "Build operating model, systems, responsibilities and control points",
+              "artifact": "Polished Service Blueprint + Operating Model"
+            },
+            {
+              "date": "2026-12-13",
+              "day": "Sunday",
+              "type": "ship",
+              "topic": "Identify ownership gaps, dependencies and control failures",
+              "artifact": "Operating Model Section v2"
+            }
           ]
         },
         {
-          "id": "dec-w3",
-          "week_number": 3,
+          "id": "dec-w16",
+          "week_number": 16,
           "start": "2026-12-15",
           "end": "2026-12-20",
-          "focus": "Risk, Economics & Strategy",
-          "capabilities": ["Risk & Controls","Commercial Economics"],
+          "focus": "Technical Architecture & Payment Infrastructure",
+          "capabilities": [
+            "Technical Architecture",
+            "Payment Infrastructure",
+            "Risk & Controls",
+            "Operating Model"
+          ],
           "sessions": [
-            {"date":"2026-12-15","day":"Tuesday","type":"study","topic":"Risk and control synthesis","artifact":"Risk notes"},
-            {"date":"2026-12-17","day":"Thursday","type":"lab","topic":"Commercial economics finalisation","artifact":"Commercial models"},
-            {"date":"2026-12-20","day":"Sunday","type":"ship","topic":"Flagship case draft","artifact":"End-to-End Fintech Flagship Case (draft)"}
+            {
+              "date": "2026-12-15",
+              "day": "Tuesday",
+              "type": "study",
+              "topic": "Architecture views, APIs, events, systems of record, rails, states, fraud, settlement and reconciliation",
+              "artifact": "Architecture Study Pack"
+            },
+            {
+              "date": "2026-12-17",
+              "day": "Thursday",
+              "type": "lab",
+              "topic": "Build architecture diagram, payment sequence, controls and settlement/reconciliation flows",
+              "artifact": "Technical Architecture Pack"
+            },
+            {
+              "date": "2026-12-20",
+              "day": "Sunday",
+              "type": "ship",
+              "topic": "Integrate customer, operations, architecture and payment flow",
+              "artifact": "Near-Final End-to-End Fintech Flagship Case"
+            }
           ]
         },
         {
-          "id": "dec-w4",
-          "week_number": 4,
+          "id": "dec-w17",
+          "week_number": 17,
           "start": "2026-12-22",
           "end": "2026-12-27",
-          "focus": "Publish prep & flagship polish",
-          "capabilities": ["Customer Experience","Operating Model","Technical Architecture","Payment Infrastructure","Risk & Controls","Commercial Economics"],
+          "focus": "Risk & Commercial Economics",
+          "capabilities": [
+            "Risk & Controls",
+            "Commercial Economics",
+            "Operating Model"
+          ],
           "sessions": [
-            {"date":"2026-12-22","day":"Tuesday","type":"study","topic":"Publication checklist","artifact":"Publish checklist"},
-            {"date":"2026-12-24","day":"Thursday","type":"lab","topic":"Polish flagship case","artifact":"Flagship edits"},
-            {"date":"2026-12-27","day":"Sunday","type":"ship","topic":"Publish flagship case (public)","artifact":"Flagship Public Case Study"}
+            {
+              "date": "2026-12-22",
+              "day": "Tuesday",
+              "type": "study",
+              "topic": "Fraud, AML, operational risk, availability, data risk, pricing, costs and unit economics",
+              "artifact": "Risk Register + Mini-P&L Specification"
+            },
+            {
+              "date": "2026-12-24",
+              "day": "Thursday",
+              "type": "lab",
+              "topic": "Connect risks to controls and economic impact",
+              "artifact": "Risk Register + Economics Section"
+            },
+            {
+              "date": "2026-12-27",
+              "day": "Sunday",
+              "type": "ship",
+              "topic": "Pre-publication review, source verification, claims audit and executive summary",
+              "artifact": "Publication-Ready Flagship Case"
+            }
+          ]
+        },
+        {
+          "id": "dec-w18",
+          "week_number": 18,
+          "start": "2026-12-29",
+          "end": "2026-12-31",
+          "focus": "Executive Synthesis & Closeout",
+          "capabilities": [
+            "Customer Experience",
+            "Operating Model",
+            "Technical Architecture",
+            "Payment Infrastructure",
+            "Risk & Controls",
+            "Commercial Economics"
+          ],
+          "sessions": [
+            {
+              "date": "2026-12-29",
+              "day": "Tuesday",
+              "type": "study",
+              "topic": "Executive narrative, trade-offs, recommendation and six-lens synthesis",
+              "artifact": "Executive Thesis Draft"
+            },
+            {
+              "date": "2026-12-31",
+              "day": "Thursday",
+              "type": "ship",
+              "topic": "Publication QA, evidence index, source verification and 2027 gap analysis",
+              "artifact": "Final Flagship Case + Evidence Index"
+            }
           ]
         }
       ]
