@@ -1,0 +1,196 @@
+{
+  "start": "2026-09-01",
+  "end": "2026-12-31",
+  "phases": [
+    {
+      "id": "sep",
+      "label": "Payments Foundations",
+      "start": "2026-09-01",
+      "end": "2026-09-30",
+      "items": [
+        "South African payments ecosystem",
+        "Card lifecycle",
+        "Payment failures",
+        "Settlement",
+        "Reconciliation",
+        "PayShap",
+        "QR+",
+        "ISO 20022"
+      ],
+      "weeks": 4,
+      "weeks_detail": [
+        {
+          "week": 1,
+          "tuesday": "2026-09-01",
+          "thursday": "2026-09-03",
+          "sunday": "2026-09-06",
+          "topic": ["South African payments ecosystem"]
+        },
+        {
+          "week": 2,
+          "tuesday": "2026-09-08",
+          "thursday": "2026-09-10",
+          "sunday": "2026-09-13",
+          "topic": ["Card lifecycle"]
+        },
+        {
+          "week": 3,
+          "tuesday": "2026-09-15",
+          "thursday": "2026-09-17",
+          "sunday": "2026-09-20",
+          "topic": ["Payment failures"]
+        },
+        {
+          "week": 4,
+          "tuesday": "2026-09-22",
+          "thursday": "2026-09-24",
+          "sunday": "2026-09-27",
+          "topic": ["Settlement", "Reconciliation", "PayShap", "QR+", "ISO 20022"]
+        }
+      ]
+    },
+    {
+      "id": "oct",
+      "label": "Technical Payments",
+      "start": "2026-10-01",
+      "end": "2026-10-31",
+      "items": [
+        "APIs",
+        "Authentication",
+        "Idempotency",
+        "Webhooks",
+        "Transaction states",
+        "State machines",
+        "Payment data models",
+        "Reconciliation prototype"
+      ],
+      "weeks": 4,
+      "weeks_detail": [
+        {
+          "week": 1,
+          "tuesday": "2026-10-06",
+          "thursday": "2026-10-08",
+          "sunday": "2026-10-11",
+          "topic": ["APIs", "Authentication"]
+        },
+        {
+          "week": 2,
+          "tuesday": "2026-10-13",
+          "thursday": "2026-10-15",
+          "sunday": "2026-10-18",
+          "topic": ["Idempotency", "Webhooks"]
+        },
+        {
+          "week": 3,
+          "tuesday": "2026-10-20",
+          "thursday": "2026-10-22",
+          "sunday": "2026-10-25",
+          "topic": ["Transaction states", "State machines"]
+        },
+        {
+          "week": 4,
+          "tuesday": "2026-10-27",
+          "thursday": "2026-10-29",
+          "sunday": "2026-11-01",
+          "topic": ["Payment data models", "Reconciliation prototype"]
+        }
+      ]
+    },
+    {
+      "id": "nov",
+      "label": "Commercial Fintech",
+      "start": "2026-11-01",
+      "end": "2026-11-30",
+      "items": [
+        "Transaction economics",
+        "TPV",
+        "Take rate",
+        "Pricing",
+        "Fraud losses",
+        "Processing costs",
+        "Contribution margin",
+        "Mini P&L",
+        "Sensitivity analysis",
+        "Executive metrics"
+      ],
+      "weeks": 4,
+      "weeks_detail": [
+        {
+          "week": 1,
+          "tuesday": "2026-11-03",
+          "thursday": "2026-11-05",
+          "sunday": "2026-11-08",
+          "topic": ["Transaction economics", "TPV"]
+        },
+        {
+          "week": 2,
+          "tuesday": "2026-11-10",
+          "thursday": "2026-11-12",
+          "sunday": "2026-11-15",
+          "topic": ["Take rate", "Pricing"]
+        },
+        {
+          "week": 3,
+          "tuesday": "2026-11-17",
+          "thursday": "2026-11-19",
+          "sunday": "2026-11-22",
+          "topic": ["Fraud losses", "Processing costs", "Sensitivity analysis"]
+        },
+        {
+          "week": 4,
+          "tuesday": "2026-11-24",
+          "thursday": "2026-11-26",
+          "sunday": "2026-11-29",
+          "topic": ["Contribution margin", "Mini P&L", "Executive metrics"]
+        }
+      ]
+    },
+    {
+      "id": "dec",
+      "label": "Executive Product Synthesis",
+      "start": "2026-12-01",
+      "end": "2026-12-31",
+      "items": [
+        "Customer experience",
+        "Operating model",
+        "Technical architecture",
+        "Payment infrastructure",
+        "Risk and controls",
+        "Commercial economics",
+        "Strategic recommendation",
+        "Flagship public case study"
+      ],
+      "weeks": 4,
+      "weeks_detail": [
+        {
+          "week": 1,
+          "tuesday": "2026-12-01",
+          "thursday": "2026-12-03",
+          "sunday": "2026-12-06",
+          "topic": ["Customer experience", "Operating model"]
+        },
+        {
+          "week": 2,
+          "tuesday": "2026-12-08",
+          "thursday": "2026-12-10",
+          "sunday": "2026-12-13",
+          "topic": ["Technical architecture", "Payment infrastructure"]
+        },
+        {
+          "week": 3,
+          "tuesday": "2026-12-15",
+          "thursday": "2026-12-17",
+          "sunday": "2026-12-20",
+          "topic": ["Risk and controls", "Commercial economics", "Strategic recommendation"]
+        },
+        {
+          "week": 4,
+          "tuesday": "2026-12-22",
+          "thursday": "2026-12-24",
+          "sunday": "2026-12-27",
+          "topic": ["Flagship public case study", "Publish prep"]
+        }
+      ]
+    }
+  ]
+}
