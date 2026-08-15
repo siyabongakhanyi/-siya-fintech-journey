@@ -63,8 +63,11 @@ function calculateRoadmapState(now, roadmap){
 
 // ---------- Evidence statistics ----------
 function calculateEvidenceStats(evidence){
-  const stats={total:0,learning:0,portfolio:0,flagship:0,shipped:0,published:0,diagrams:0,prototypes:0,models:0,caseStudies:0,planned:0,completed:0};
-  if(!Array.isArray(evidence)) return stats;
+  // If evidence failed to load, return null-loaded stats so UI shows '—' placeholders
+  const unloaded = { evidenceLoaded: false, total: null, learning: null, portfolio: null, flagship: null, shipped: null, published: null, diagrams: null, prototypes: null, models: null, caseStudies: null, planned: null, completed: null };
+  if(!Array.isArray(evidence)) return unloaded;
+
+  const stats = { evidenceLoaded: true, total: 0, learning: 0, portfolio: 0, flagship: 0, shipped: 0, published: 0, diagrams: 0, prototypes: 0, models: 0, caseStudies: 0, planned: 0, completed: 0 };
   stats.total = evidence.length;
   for(const it of evidence){
     const lvl=(it.evidence_level||'').toLowerCase();
@@ -75,7 +78,8 @@ function calculateEvidenceStats(evidence){
     if(st==='shipped') stats.shipped++;
     if(st==='published') stats.published++;
     if(st==='planned') stats.planned++;
-    if(st!=='planned') stats.completed++;
+    // completed is strictly SHIPPED + PUBLISHED (per requirements)
+    if(st==='shipped' || st==='published') stats.completed++;
     const at=(it.artifact_type||'').toLowerCase();
     if(at.includes('diagram')||at.includes('atlas')) stats.diagrams++;
     if(at.includes('prototype')) stats.prototypes++;
@@ -101,12 +105,13 @@ function getLatestEvidence(evidence, limit=5){
 
 // ---------- Render helpers ----------
 function renderCounters(stats){
-  document.getElementById('counter-total')?.textContent = stats.total || '—';
-  document.getElementById('counter-learning')?.textContent = stats.learning || '—';
-  document.getElementById('counter-portfolio')?.textContent = stats.portfolio || '—';
-  document.getElementById('counter-flagship')?.textContent = stats.flagship || '—';
-  document.getElementById('counter-shipped')?.textContent = stats.shipped || '—';
-  document.getElementById('counter-published')?.textContent = stats.published || '—';
+  // display numbers when evidence loaded; otherwise show placeholder '—'
+  document.getElementById('counter-total')?.textContent = stats.evidenceLoaded ? String(stats.total) : '—';
+  document.getElementById('counter-learning')?.textContent = stats.evidenceLoaded ? String(stats.learning) : '—';
+  document.getElementById('counter-portfolio')?.textContent = stats.evidenceLoaded ? String(stats.portfolio) : '—';
+  document.getElementById('counter-flagship')?.textContent = stats.evidenceLoaded ? String(stats.flagship) : '—';
+  document.getElementById('counter-shipped')?.textContent = stats.evidenceLoaded ? String(stats.shipped) : '—';
+  document.getElementById('counter-published')?.textContent = stats.evidenceLoaded ? String(stats.published) : '—';
 }
 
 function renderLatest(latest){
