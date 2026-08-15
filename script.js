@@ -42,6 +42,84 @@ function findActiveWeek(now, roadmap){
   return result;
 }
 
+// ---------- getNextSession helper ----------
+function getNextSession(now, roadmapState, roadmap){
+  // Returns the next scheduled session object in the form:
+  // { date, day, type, topic, artifact, weekId }
+  // Logic:
+  //  - If now < roadmap.start => return first session of week 1 (Tuesday)
+  //  - If now > roadmap.end => return null
+  //  - Prefer the active week (from roadmapState.currentWeek or findActiveWeek)
+  //  - If all sessions in the active week are past, return the first session in the next week (search forward across weeks)
+
+  if(!roadmap || !Array.isArray(roadmap.phases)) return null;
+  const nowTime = now.getTime();
+  const roadmapStart = roadmap.start ? new Date(roadmap.start + 'T00:00:00').getTime() : null;
+  const roadmapEnd = roadmap.end ? new Date(roadmap.end + 'T23:59:59').getTime() : null;
+
+  if(roadmapStart && nowTime < roadmapStart){
+    // return the first session (Tuesday) of the first phase's first week
+    const firstPhase = roadmap.phases[0];
+    if(!firstPhase || !Array.isArray(firstPhase.weeks) || firstPhase.weeks.length===0) return null;
+    const firstWeek = firstPhase.weeks[0];
+    const firstSession = Array.isArray(firstWeek.sessions) && firstWeek.sessions.length ? firstWeek.sessions[0] : null;
+    if(firstSession) return { date:firstSession.date, day:firstSession.day, type:firstSession.type, topic:firstSession.topic, artifact:firstSession.artifact, weekId:firstWeek.id };
+    return null;
+  }
+
+  if(roadmapEnd && nowTime > roadmapEnd) return null;
+
+  // Flatten weeks with ordering
+  const flat = [];
+  roadmap.phases.forEach((phase, pIndex)=>{
+    if(!phase || !Array.isArray(phase.weeks)) return;
+    phase.weeks.forEach((wk, wIndex)=>{
+      if(!wk || !wk.start) return;
+      const wStart = new Date(wk.start + 'T00:00:00').getTime();
+      flat.push({ phase, phaseIndex:pIndex, week:wk, weekIndex:wIndex, wStart });
+    });
+  });
+  flat.sort((a,b)=>a.wStart - b.wStart);
+
+  // Determine active week index: prefer roadmapState.currentWeek if available
+  let activeIdx = -1;
+  if(roadmapState && roadmapState.currentWeek && roadmapState.currentWeek.id){
+    activeIdx = flat.findIndex(f=>f.week.id === roadmapState.currentWeek.id);
+  }
+  // If not found, use findActiveWeek
+  if(activeIdx === -1){
+    const explicit = findActiveWeek(now, roadmap);
+    if(explicit && explicit.week && explicit.phase){
+      activeIdx = flat.findIndex(f=>f.week.id === explicit.week.id && f.phaseIndex === explicit.phaseIndex);
+    }
+  }
+  // If still not found, set to first upcoming week whose end >= now
+  if(activeIdx === -1){
+    activeIdx = flat.findIndex(f=>{
+      if(!f.week || !f.week.end) return false;
+      const wEnd = new Date(f.week.end + 'T23:59:59').getTime();
+      return wEnd >= nowTime;
+    });
+  }
+  if(activeIdx === -1) return null; // no future or active weeks found
+
+  // Search from activeIdx forward for the first session whose date end >= now
+  for(let i=activeIdx;i<flat.length;i++){
+    const wk = flat[i].week;
+    if(!wk || !Array.isArray(wk.sessions) || wk.sessions.length===0) continue;
+    // ensure sessions sorted by date ascending
+    const sessions = wk.sessions.slice().sort((a,b)=> new Date(a.date + 'T00:00:00').getTime() - new Date(b.date + 'T00:00:00').getTime());
+    for(const s of sessions){
+      const sEnd = new Date(s.date + 'T23:59:59').getTime();
+      if(sEnd >= nowTime){
+        return { date:s.date, day:s.day, type:s.type, topic:s.topic, artifact:s.artifact, weekId:wk.id };
+      }
+    }
+  }
+
+  return null;
+}
+
 // ---------- Roadmap state calculator ----------
 function calculateRoadmapState(now, roadmap){
   // default bounds and state shape
