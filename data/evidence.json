@@ -1,0 +1,393 @@
+[
+  {
+    "id": "sa-payments-ecosystem",
+    "title": "South African Payments Ecosystem Map",
+    "date": "2026-09-01",
+    "category": "payments",
+    "status": "PLANNED",
+    "capability": [
+      "Payment Infrastructure",
+      "Customer Experience"
+    ],
+    "artifact_type": "document",
+    "version": "0.1",
+    "source_basis": "SARB and PASA public documentation",
+    "assumptions": [
+      "no live transaction data used"
+    ],
+    "lessons_learned": "",
+    "next_gap": "add reconciliation flow diagrams and settlement timing table",
+    "github_url": "",
+    "public_url": "",
+    "description": "A map of schemes, rails, participants and settlement flows in South Africa.",
+    "evidence_level": "learning"
+  },
+  {
+    "id": "sep-week1-study",
+    "title": "Payments Foundations — Week 1 Study (SA ecosystem & scheme roles)",
+    "date": "2026-09-01",
+    "category": "payments",
+    "status": "PLANNED",
+    "capability": [
+      "Payment Infrastructure"
+    ],
+    "artifact_type": "notes",
+    "version": "0.1",
+    "source_basis": "SARB, PASA public materials",
+    "assumptions": [],
+    "lessons_learned": "",
+    "next_gap": "map participant responsibilities to reconciliation flows",
+    "github_url": "",
+    "public_url": "",
+    "description": "Tuesday study: overview of South African scheme participants, PASA roles and central bank oversight.",
+    "evidence_level": "learning"
+  },
+  {
+    "id": "sep-week1-lab",
+    "title": "Payments Foundations — Week 1 Lab (mapping participants)",
+    "date": "2026-09-03",
+    "category": "technical",
+    "status": "PLANNED",
+    "capability": [
+      "Technical Architecture",
+      "Payment Infrastructure"
+    ],
+    "artifact_type": "diagram",
+    "version": "0.1",
+    "source_basis": "SARB/PASA diagrams adapted",
+    "assumptions": [],
+    "lessons_learned": "",
+    "next_gap": "annotate with clearing/settlement timings",
+    "github_url": "",
+    "public_url": "",
+    "description": "Thursday lab: create a first-pass diagram linking issuers, acquirers, PSPs and schemes.",
+    "evidence_level": "learning"
+  },
+  {
+    "id": "sep-week1-ship",
+    "title": "Payments Foundations — Week 1 Ship (participant map)",
+    "date": "2026-09-06",
+    "category": "payments",
+    "status": "PLANNED",
+    "capability": [
+      "Payment Infrastructure",
+      "Customer Experience"
+    ],
+    "artifact_type": "pack",
+    "version": "0.1",
+    "source_basis": "Tuesday study + Thursday lab",
+    "assumptions": [],
+    "lessons_learned": "",
+    "next_gap": "add timing & reconciliation rows",
+    "github_url": "",
+    "public_url": "",
+    "description": "Sunday ship: polished participant map and public-ready summary.",
+    "evidence_level": "learning"
+  },
+  {
+    "id": "card-lifecycle-failure-atlas",
+    "title": "Card Lifecycle + Failure Atlas",
+    "date": "2026-09-10",
+    "category": "payments",
+    "status": "PLANNED",
+    "capability": [
+      "Payment Infrastructure",
+      "Technical Architecture"
+    ],
+    "artifact_type": "atlas",
+    "version": "0.1",
+    "source_basis": "scheme docs, processor guides",
+    "assumptions": [
+      "synthetic failure examples"
+    ],
+    "lessons_learned": "",
+    "next_gap": "capture real webhook samples from sandbox",
+    "github_url": "",
+    "public_url": "",
+    "description": "Document card lifecycle events and typical failure modes across authorisation, capture and settlement.",
+    "evidence_level": "learning"
+  },
+  {
+    "id": "payment-exception-handling-matrix",
+    "title": "Payment Exception Handling Matrix",
+    "date": "2026-09-15",
+    "category": "payments",
+    "status": "PLANNED",
+    "capability": [
+      "Payment Infrastructure",
+      "Operating Model"
+    ],
+    "artifact_type": "matrix",
+    "version": "0.1",
+    "source_basis": "scheme failure modes, processor docs",
+    "assumptions": [
+      "synthetic examples for confidentiality"
+    ],
+    "lessons_learned": "",
+    "next_gap": "map to SLA and ops playbooks",
+    "github_url": "",
+    "public_url": "",
+    "description": "Matrix of failure types, responsible party, detection signal and remediation path.",
+    "evidence_level": "learning"
+  },
+  {
+    "id": "settlement-reconciliation-case-model",
+    "title": "Settlement & Reconciliation Case Model",
+    "date": "2026-09-22",
+    "category": "payments",
+    "status": "PLANNED",
+    "capability": [
+      "Payment Infrastructure",
+      "Technical Architecture",
+      "Operating Model"
+    ],
+    "artifact_type": "model",
+    "version": "0.1",
+    "source_basis": "PASA clearing rules and settlement timing guidance",
+    "assumptions": [],
+    "lessons_learned": "",
+    "next_gap": "prototype a reconciliation mapping table",
+    "github_url": "",
+    "public_url": "",
+    "description": "Case model showing clearing files, net settlement, timing buckets and reconciliation records.",
+    "evidence_level": "learning"
+  },
+  {
+    "id": "september-payments-foundations-pack",
+    "title": "September — Payments Foundations Pack",
+    "date": "2026-09-27",
+    "category": "payments",
+    "status": "PLANNED",
+    "capability": [
+      "Payment Infrastructure",
+      "Technical Architecture"
+    ],
+    "artifact_type": "pack",
+    "version": "0.1",
+    "source_basis": "monthly consolidation of weeks 1–4",
+    "assumptions": [],
+    "lessons_learned": "",
+    "next_gap": "add reconciliation prototype artifacts in October",
+    "github_url": "",
+    "public_url": "",
+    "description": "Consolidated pack for September: ecosystem map, exception matrix and settlement model.",
+    "evidence_level": "portfolio"
+  },
+  {
+    "id": "oct-week1-study",
+    "title": "Payments API Fundamentals — Study",
+    "date": "2026-10-06",
+    "category": "technical",
+    "status": "PLANNED",
+    "capability": [
+      "Technical Architecture"
+    ],
+    "artifact_type": "notes",
+    "version": "0.1",
+    "source_basis": "RFCs and PSP sandbox docs",
+    "assumptions": [],
+    "lessons_learned": "",
+    "next_gap": "implement idempotency in sandbox",
+    "github_url": "",
+    "public_url": "",
+    "description": "Tuesday study: API resources, idempotency keys, auth models and sample payloads.",
+    "evidence_level": "learning"
+  },
+  {
+    "id": "oct-week1-lab",
+    "title": "Webhooks & Event Handling — Lab",
+    "date": "2026-10-08",
+    "category": "technical",
+    "status": "PLANNED",
+    "capability": [
+      "Technical Architecture"
+    ],
+    "artifact_type": "prototype",
+    "version": "0.1",
+    "source_basis": "PSP sandbox",
+    "assumptions": [],
+    "lessons_learned": "",
+    "next_gap": "extend to reconciliation events",
+    "github_url": "",
+    "public_url": "",
+    "description": "Thursday lab: receive and validate payment webhooks; test replay / idempotency behaviour.",
+    "evidence_level": "learning"
+  },
+  {
+    "id": "oct-week1-ship",
+    "title": "API Sandbox Commit — initial",
+    "date": "2026-10-11",
+    "category": "technical",
+    "status": "PLANNED",
+    "capability": [
+      "Technical Architecture"
+    ],
+    "artifact_type": "prototype",
+    "version": "0.1",
+    "source_basis": "lab outcomes",
+    "assumptions": [],
+    "lessons_learned": "",
+    "next_gap": "add reconciliation POC",
+    "github_url": "",
+    "public_url": "",
+    "description": "Sunday ship: initial payments API sandbox repository and README.",
+    "evidence_level": "portfolio"
+  },
+  {
+    "id": "transaction-state-machine",
+    "title": "Transaction State Machine",
+    "date": "2026-10-18",
+    "category": "technical",
+    "status": "PLANNED",
+    "capability": [
+      "Technical Architecture"
+    ],
+    "artifact_type": "diagram",
+    "version": "0.1",
+    "source_basis": "payment API behaviour and webhook patterns",
+    "assumptions": [
+      "simple linear flows; more work needed for exceptions"
+    ],
+    "lessons_learned": "",
+    "next_gap": "map to reconciliation records",
+    "github_url": "",
+    "public_url": "",
+    "description": "Define canonical transaction states, transitions, retries and compensating actions.",
+    "evidence_level": "portfolio"
+  },
+  {
+    "id": "nov-week1-study",
+    "title": "Merchant Economics — Study (TPV & take rate)",
+    "date": "2026-11-03",
+    "category": "commercial",
+    "status": "PLANNED",
+    "capability": [
+      "Commercial Economics"
+    ],
+    "artifact_type": "notes",
+    "version": "0.1",
+    "source_basis": "industry benchmarks",
+    "assumptions": [],
+    "lessons_learned": "",
+    "next_gap": "select merchant archetypes for worked example",
+    "github_url": "",
+    "public_url": "",
+    "description": "Tuesday study: TPV concepts, take-rate modelling and revenue levers.",
+    "evidence_level": "learning"
+  },
+  {
+    "id": "nov-week1-lab",
+    "title": "Mini P&L — Lab (worked example)",
+    "date": "2026-11-05",
+    "category": "commercial",
+    "status": "PLANNED",
+    "capability": [
+      "Commercial Economics"
+    ],
+    "artifact_type": "model",
+    "version": "0.1",
+    "source_basis": "benchmarks and assumptions",
+    "assumptions": [],
+    "lessons_learned": "",
+    "next_gap": "sensitivity analysis",
+    "github_url": "",
+    "public_url": "",
+    "description": "Thursday lab: construct a merchant mini P&L and calculate contribution margin.",
+    "evidence_level": "learning"
+  },
+  {
+    "id": "merchant-mini-pl",
+    "title": "Merchant Payments Mini-P&L — Ship",
+    "date": "2026-11-08",
+    "category": "commercial",
+    "status": "PLANNED",
+    "capability": [
+      "Commercial Economics"
+    ],
+    "artifact_type": "model",
+    "version": "0.1",
+    "source_basis": "lab outcomes",
+    "assumptions": [],
+    "lessons_learned": "",
+    "next_gap": "run sensitivity scenarios",
+    "github_url": "",
+    "public_url": "",
+    "description": "Sunday ship: polished mini-P&L workbook and public-ready summary.",
+    "evidence_level": "portfolio"
+  },
+  {
+    "id": "pricing-sensitivity-decision",
+    "title": "Pricing + Sensitivity Decision",
+    "date": "2026-11-22",
+    "category": "commercial",
+    "status": "PLANNED",
+    "capability": [
+      "Commercial Economics",
+      "Operating Model"
+    ],
+    "artifact_type": "document",
+    "version": "0.1",
+    "source_basis": "mini-P&L and scenario modelling",
+    "assumptions": [
+      "costs per transaction approximated"
+    ],
+    "lessons_learned": "",
+    "next_gap": "validate with real merchant data",
+    "github_url": "",
+    "public_url": "",
+    "description": "A decision framework for pricing that balances take rate against fraud and processing costs.",
+    "evidence_level": "portfolio"
+  },
+  {
+    "id": "end-to-end-flagship",
+    "title": "End-to-End Fintech Flagship Case",
+    "date": "2026-12-20",
+    "category": "strategy",
+    "status": "PLANNED",
+    "capability": [
+      "Customer Experience",
+      "Operating Model",
+      "Technical Architecture",
+      "Payment Infrastructure",
+      "Risk & Controls",
+      "Commercial Economics"
+    ],
+    "artifact_type": "case_study",
+    "version": "0.1",
+    "source_basis": "consolidation of prior months' work",
+    "assumptions": [
+      "pilot data not yet available"
+    ],
+    "lessons_learned": "",
+    "next_gap": "capture pilot metrics and publish findings",
+    "github_url": "",
+    "public_url": "",
+    "description": "Flagship public case combining the six lenses into a single, synthesised product analysis and recommendation.",
+    "evidence_level": "flagship"
+  },
+  {
+    "id": "action-launcher-case",
+    "title": "Action Launcher — Enterprise Service Discovery & Orchestration",
+    "date": "2025-06-01",
+    "category": "case_study",
+    "status": "SHIPPED",
+    "capability": [
+      "Operating Model",
+      "Technical Architecture",
+      "Customer Experience",
+      "Risk & Controls"
+    ],
+    "artifact_type": "case_study",
+    "version": "1.0",
+    "source_basis": "professional work (non-confidential summary)",
+    "assumptions": [
+      "confidential implementation details omitted"
+    ],
+    "lessons_learned": "Reframing jobs as capabilities reduces duplication and governance surface.",
+    "next_gap": "prepare public-facing summary for flagship case",
+    "github_url": "",
+    "public_url": "",
+    "description": "Enterprise service-discovery and orchestration: reframed ~27 legacy servicing jobs into a service-catalogue and orchestration approach. Includes business case, governance and a working proof-of-concept. (Confidential details removed.)",
+    "evidence_level": "flagship"
+  }
+]
