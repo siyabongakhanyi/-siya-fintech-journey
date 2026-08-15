@@ -46,19 +46,12 @@ function findActiveWeek(now, roadmap){
 function getNextSession(now, roadmapState, roadmap){
   // Returns the next scheduled session object in the form:
   // { date, day, type, topic, artifact, weekId }
-  // Logic:
-  //  - If now < roadmap.start => return first session of week 1 (Tuesday)
-  //  - If now > roadmap.end => return null
-  //  - Prefer the active week (from roadmapState.currentWeek or findActiveWeek)
-  //  - If all sessions in the active week are past, return the first session in the next week (search forward across weeks)
-
   if(!roadmap || !Array.isArray(roadmap.phases)) return null;
   const nowTime = now.getTime();
   const roadmapStart = roadmap.start ? new Date(roadmap.start + 'T00:00:00').getTime() : null;
   const roadmapEnd = roadmap.end ? new Date(roadmap.end + 'T23:59:59').getTime() : null;
 
   if(roadmapStart && nowTime < roadmapStart){
-    // return the first session (Tuesday) of the first phase's first week
     const firstPhase = roadmap.phases[0];
     if(!firstPhase || !Array.isArray(firstPhase.weeks) || firstPhase.weeks.length===0) return null;
     const firstWeek = firstPhase.weeks[0];
@@ -86,14 +79,12 @@ function getNextSession(now, roadmapState, roadmap){
   if(roadmapState && roadmapState.currentWeek && roadmapState.currentWeek.id){
     activeIdx = flat.findIndex(f=>f.week.id === roadmapState.currentWeek.id);
   }
-  // If not found, use findActiveWeek
   if(activeIdx === -1){
     const explicit = findActiveWeek(now, roadmap);
     if(explicit && explicit.week && explicit.phase){
       activeIdx = flat.findIndex(f=>f.week.id === explicit.week.id && f.phaseIndex === explicit.phaseIndex);
     }
   }
-  // If still not found, set to first upcoming week whose end >= now
   if(activeIdx === -1){
     activeIdx = flat.findIndex(f=>{
       if(!f.week || !f.week.end) return false;
@@ -101,13 +92,11 @@ function getNextSession(now, roadmapState, roadmap){
       return wEnd >= nowTime;
     });
   }
-  if(activeIdx === -1) return null; // no future or active weeks found
+  if(activeIdx === -1) return null;
 
-  // Search from activeIdx forward for the first session whose date end >= now
   for(let i=activeIdx;i<flat.length;i++){
     const wk = flat[i].week;
     if(!wk || !Array.isArray(wk.sessions) || wk.sessions.length===0) continue;
-    // ensure sessions sorted by date ascending
     const sessions = wk.sessions.slice().sort((a,b)=> new Date(a.date + 'T00:00:00').getTime() - new Date(b.date + 'T00:00:00').getTime());
     for(const s of sessions){
       const sEnd = new Date(s.date + 'T23:59:59').getTime();
@@ -118,6 +107,18 @@ function getNextSession(now, roadmapState, roadmap){
   }
 
   return null;
+}
+
+// ---------- Helper: filter evidence scoped to a week ----------
+function filterEvidenceForWeek(evidence, week){
+  if(!Array.isArray(evidence) || !week || !week.start || !week.end) return [];
+  const startTs = new Date(week.start + 'T00:00:00').getTime();
+  const endTs = new Date(week.end + 'T23:59:59').getTime();
+  return evidence.filter(it=>{
+    if(!it || !it.date) return false;
+    const d = new Date(it.date + 'T00:00:00').getTime();
+    return d >= startTs && d <= endTs;
+  });
 }
 
 // ---------- Roadmap state calculator ----------
@@ -151,7 +152,6 @@ function calculateRoadmapState(now, roadmap){
     state.currentWeekIndex = wk.week_number || (explicit.weekIndex + 1);
     state.currentWeek = wk; // full week object
     state.currentFocus = wk.focus || (Array.isArray(wk.topic) ? wk.topic[0] : undefined);
-    // compute phase progress based on phase.start/end if available
     if(phase.start && phase.end){
       const ps = new Date(phase.start+'T00:00:00');
       const pe = new Date(phase.end+'T23:59:59');
@@ -167,7 +167,6 @@ function calculateRoadmapState(now, roadmap){
         state.currentPhase=phase.label;state.currentPhaseId=phase.id;state.phase=phase;state.totalWeeks=(Array.isArray(phase.weeks)?phase.weeks.length:(phase.weeks||Math.max(1,Math.round((pe-ps)/(1000*60*60*24*7)))));
         // compute week index — prefer explicit weeks mapping if available
         if(Array.isArray(phase.weeks) && phase.weeks.length){
-          // find a week within this phase
           let found=null;const nowTime=now.getTime();
           for(let wIndex=0; wIndex<phase.weeks.length; wIndex++){
             const wk = phase.weeks[wIndex]; if(!wk || !wk.start || !wk.end) continue;
@@ -178,18 +177,15 @@ function calculateRoadmapState(now, roadmap){
             const daysInto=Math.floor((now-ps)/(1000*60*60*24));
             const weekIndex=Math.min(state.totalWeeks, Math.floor(daysInto/7)+1);
             state.currentWeekIndex=weekIndex;
-            // if phase.weeks present but no exact week matched, attempt to derive a week object from nearest index
             const derived = phase.weeks[weekIndex-1] || null; state.currentWeek = derived;
             state.currentFocus = derived ? (derived.focus || (Array.isArray(derived.topic)?derived.topic[0]:undefined)) : undefined;
           }
         } else {
-          // fallback by days into phase when no weeks array present
           const daysInto=Math.floor((now-ps)/(1000*60*60*24));
           const weekIndex=Math.min(state.totalWeeks, Math.floor(daysInto/7)+1);
           state.currentWeekIndex=weekIndex;
           state.currentWeek = null;
         }
-        // phase progress
         const phasePct=Math.round(((now-ps)/(pe-ps))*100);
         state.phaseProgressPct=Math.max(0,Math.min(100,phasePct));
         break;
@@ -197,14 +193,12 @@ function calculateRoadmapState(now, roadmap){
     }
   }
 
-  // if after roadmap end, ensure values
   if(now > roadmapEnd){ state.pctComplete=100; state.currentPhase='Roadmap Complete'; state.currentWeekIndex=null; state.currentWeek=null }
   return state;
 }
 
 // ---------- Evidence statistics ----------
 function calculateEvidenceStats(evidence){
-  // If evidence failed to load, return null-loaded stats so UI shows '—' placeholders
   const unloaded = { evidenceLoaded: false, total: null, learning: null, portfolio: null, flagship: null, shipped: null, published: null, diagrams: null, prototypes: null, models: null, caseStudies: null, planned: null, completed: null };
   if(!Array.isArray(evidence)) return unloaded;
 
@@ -219,7 +213,6 @@ function calculateEvidenceStats(evidence){
     if(st==='shipped') stats.shipped++;
     if(st==='published') stats.published++;
     if(st==='planned') stats.planned++;
-    // completed is strictly SHIPPED + PUBLISHED (per requirements)
     if(st==='shipped' || st==='published') stats.completed++;
     const at=(it.artifact_type||'').toLowerCase();
     if(at.includes('diagram')||at.includes('atlas')) stats.diagrams++;
@@ -233,7 +226,6 @@ function calculateEvidenceStats(evidence){
 // ---------- Latest evidence selection ----------
 function getLatestEvidence(evidence, limit=5){
   if(!Array.isArray(evidence)) return [];
-  // sort by status priority then date desc: PUBLISHED>SHIPPED>others, then date
   const statusScore = s=>{ if(!s) return 2; s=s.toLowerCase(); if(s==='published') return 0; if(s==='shipped') return 1; if(s==='planned') return 4; return 3 };
   const items = evidence.slice().sort((a,b)=>{
     const sa=statusScore(a.status); const sb=statusScore(b.status);
@@ -246,7 +238,6 @@ function getLatestEvidence(evidence, limit=5){
 
 // ---------- Render helpers ----------
 function renderCounters(stats){
-  // display numbers when evidence loaded; otherwise show placeholder '—'
   document.getElementById('counter-total')?.textContent = stats.evidenceLoaded ? String(stats.total) : '—';
   document.getElementById('counter-learning')?.textContent = stats.evidenceLoaded ? String(stats.learning) : '—';
   document.getElementById('counter-portfolio')?.textContent = stats.evidenceLoaded ? String(stats.portfolio) : '—';
@@ -274,7 +265,117 @@ function renderLatest(latest){
   }
 }
 
-function renderDashboard(state, stats, latest, roadmap){
+// helper: format session label/date
+function formatSessionSummary(session, now){
+  if(!session) return {label:'No next session.', line1:'No next session.'};
+  const sDate = new Date(session.date + 'T00:00:00');
+  const sameDay = sDate.toDateString() === now.toDateString();
+  const when = sameDay ? 'TODAY' : 'NEXT';
+  const dayPart = session.day || (sDate.toLocaleDateString(undefined,{weekday:'long'}));
+  const shortDate = sDate.toLocaleDateString(undefined,{day:'numeric',month:'short'});
+  const line1 = `${when} · ${dayPart} · ${shortDate}`;
+  return { label: when, line1 };
+}
+
+function ensureThisWeekCard(){
+  // find existing card container (do not replace). Try common IDs then create minimal container in DOM if none.
+  let card = document.getElementById('this-week-card');
+  const host = document.getElementById('command-centre') || document.getElementById('dashboard') || document.body;
+  if(!card){
+    card = document.createElement('section'); card.id = 'this-week-card'; card.className = 'card this-week';
+    host.insertBefore(card, host.firstChild);
+  }
+  return card;
+}
+
+function renderThisWeekCard(state, roadmap, evidence, nextSession){
+  const now = new Date();
+  const container = ensureThisWeekCard();
+  container.innerHTML='';
+  // Build header elements
+  const header = document.createElement('div'); header.className='this-week-header';
+  const weekEl = document.createElement('h4');
+  const phaseEl = document.createElement('h5');
+  const focusEl = document.createElement('div'); focusEl.className='this-week-focus';
+
+  // Determine display values for three main states
+  const roadmapStart = roadmap && roadmap.start ? new Date(roadmap.start+'T00:00:00').getTime() : null;
+  const roadmapEnd = roadmap && roadmap.end ? new Date(roadmap.end+'T23:59:59').getTime() : null;
+
+  if(roadmapStart && now.getTime() < roadmapStart){
+    // Before roadmap start: UP NEXT / Preparation
+    weekEl.textContent = 'UP NEXT';
+    phaseEl.textContent = 'Preparation';
+    // focus: use first week's first session topic if available
+    const firstPhase = roadmap.phases && roadmap.phases[0];
+    let focusText = state.currentFocus || '';
+    if(firstPhase && Array.isArray(firstPhase.weeks) && firstPhase.weeks.length){
+      const fw = firstPhase.weeks[0];
+      focusText = focusText || (Array.isArray(fw.sessions) && fw.sessions[0] && fw.sessions[0].topic) || (fw.focus || (Array.isArray(fw.topic)?fw.topic[0]:''));
+    }
+    focusEl.textContent = focusText || '';
+  } else if(roadmapEnd && now.getTime() > roadmapEnd){
+    // After roadmap end: COMPLETE
+    weekEl.textContent = 'COMPLETE';
+    phaseEl.textContent = 'Roadmap Complete';
+    // focus: use last phase label or last week's focus
+    const lastPhase = roadmap.phases && roadmap.phases[roadmap.phases.length-1];
+    focusEl.textContent = (lastPhase && lastPhase.label) || '';
+  } else {
+    // During roadmap
+    weekEl.textContent = state.currentWeekIndex ? `Week ${state.currentWeekIndex}` : 'This Week';
+    phaseEl.textContent = state.currentPhase || '';
+    focusEl.textContent = state.currentFocus || (state.phase && Array.isArray(state.phase.items) ? state.phase.items[Math.max(0,(state.currentWeekIndex||1)-1)] : '');
+  }
+
+  header.appendChild(weekEl); header.appendChild(phaseEl); header.appendChild(focusEl);
+
+  // Next session block
+  const nextBlock = document.createElement('div'); nextBlock.className='this-week-next';
+  const sessSummary = formatSessionSummary(nextSession, now);
+  const nextLabel = document.createElement('div'); nextLabel.className='next-label'; nextLabel.textContent = sessSummary.label;
+  const nextLine = document.createElement('div'); nextLine.className='next-line1'; nextLine.textContent = nextSession ? sessSummary.line1 : 'No next session.';
+  const topicLine = document.createElement('div'); topicLine.className='next-topic'; topicLine.textContent = nextSession && nextSession.topic ? nextSession.topic : (nextSession ? '' : 'No next session.');
+  const expectedLine = document.createElement('div'); expectedLine.className='next-expected'; expectedLine.textContent = nextSession && nextSession.artifact ? `Expected evidence → ${nextSession.artifact}` : ( (now.getTime() > (roadmapEnd||Infinity)) ? 'No next session.' : 'Expected evidence → —' );
+
+  nextBlock.appendChild(nextLabel); nextBlock.appendChild(nextLine); nextBlock.appendChild(topicLine); nextBlock.appendChild(expectedLine);
+
+  // Accessibility: announce changes politely
+  nextBlock.setAttribute('role','region'); nextBlock.setAttribute('aria-live','polite'); nextBlock.setAttribute('aria-label','Next session');
+
+  container.appendChild(header); container.appendChild(nextBlock);
+}
+
+function renderCounters(stats){
+  document.getElementById('counter-total')?.textContent = stats.evidenceLoaded ? String(stats.total) : '—';
+  document.getElementById('counter-learning')?.textContent = stats.evidenceLoaded ? String(stats.learning) : '—';
+  document.getElementById('counter-portfolio')?.textContent = stats.evidenceLoaded ? String(stats.portfolio) : '—';
+  document.getElementById('counter-flagship')?.textContent = stats.evidenceLoaded ? String(stats.flagship) : '—';
+  document.getElementById('counter-shipped')?.textContent = stats.evidenceLoaded ? String(stats.shipped) : '—';
+  document.getElementById('counter-published')?.textContent = stats.evidenceLoaded ? String(stats.published) : '—';
+}
+
+function renderLatest(latest){
+  const container=document.getElementById('dashboard-latest');
+  if(!container) return;
+  container.innerHTML='';
+  if(!latest || latest.length===0){ container.innerHTML='<div class="latest-empty">No evidence available.</div>'; return }
+  for(const it of latest){
+    const div=document.createElement('div');div.className='latest-item';
+    const h=document.createElement('h5');h.textContent=it.title;div.appendChild(h);
+    const meta=document.createElement('div');meta.className='latest-meta';
+    const d=document.createElement('span');d.textContent = it.date || '';meta.appendChild(d);
+    const s=document.createElement('span');s.className='latest-status';s.textContent = (it.status||'PLANNED');meta.appendChild(s);
+    const lvl=document.createElement('span');lvl.textContent = (it.evidence_level||'') ;meta.appendChild(lvl);
+    const cat=document.createElement('span');cat.textContent = it.category || '';meta.appendChild(cat);
+    div.appendChild(meta);
+    const p=document.createElement('p');p.textContent = it.description || '';div.appendChild(p);
+    container.appendChild(div);
+  }
+}
+
+function renderDashboard(state, stats, latest, roadmap, evidence, nextSession){
+  const now = new Date();
   // countdown
   document.getElementById('dashboard-days')?.textContent = (state.daysLeft!=null) ? String(state.daysLeft) : '—';
   // progress
@@ -289,25 +390,25 @@ function renderDashboard(state, stats, latest, roadmap){
   const focus = state.currentFocus || (state.phase && Array.isArray(state.phase.items) ? state.phase.items[Math.max(0,(state.currentWeekIndex||1)-1)] : '');
   document.getElementById('dashboard-focus')?.textContent = focus;
 
-  // status (determine using evidence conditions)
+  // status must be evidence-driven and scoped to current week only
   const statusEl=document.getElementById('dashboard-status');
   if(state.currentPhase==='Preparation'){ statusEl && (statusEl.textContent='PREPARING'); }
   else if(state.currentPhase==='Roadmap Complete'){ statusEl && (statusEl.textContent='COMPLETE'); }
   else {
-    // during roadmap: status derived from evidence (passed as latest)
-    // default to LEARNING
+    // derive status from evidence items that fall within currentWeek only
+    let weekEvidence = [];
+    if(Array.isArray(evidence) && state.currentWeek){
+      weekEvidence = filterEvidenceForWeek(evidence, state.currentWeek);
+    }
     let status='LEARNING';
-    // if any latest item for current week has BUILDING/SHIPPED/PUBLISHED
-    if(Array.isArray(latest) && latest.length>0){
-      const weekStatuses = latest.map(x=> (x.status||'').toUpperCase());
-      if(weekStatuses.includes('BUILDING')) status='BUILDING';
-      else if(weekStatuses.includes('SHIPPED')) status='SHIPPED';
-      else if(weekStatuses.includes('PUBLISHED')) status='PUBLISHED';
-      else {
-        // if most recent non-future evidence is PLANNED => LEARNING
-        const recent = latest.find(x=> true);
-        if(recent && (recent.status||'').toUpperCase()==='PLANNED') status='LEARNING';
-      }
+    if(Array.isArray(weekEvidence) && weekEvidence.length>0){
+      const statuses = weekEvidence.map(x=> (x.status||'').toUpperCase());
+      if(statuses.includes('BUILDING')) status='BUILDING';
+      else if(statuses.includes('SHIPPED')) status='SHIPPED';
+      else if(statuses.includes('PUBLISHED')) status='PUBLISHED';
+      else status='LEARNING';
+    } else {
+      status='LEARNING';
     }
     statusEl && (statusEl.textContent = status);
   }
@@ -315,6 +416,9 @@ function renderDashboard(state, stats, latest, roadmap){
   // counters and latest
   renderCounters(stats);
   renderLatest(latest);
+
+  // render this-week card (extended) and next session summary
+  renderThisWeekCard(state, roadmap, evidence, nextSession);
 }
 
 // ---------- Main orchestrator ----------
@@ -324,7 +428,8 @@ async function initDashboard(){
   const state = calculateRoadmapState(now, roadmap);
   const stats = calculateEvidenceStats(evidence);
   const latest = getLatestEvidence(Array.isArray(evidence)?evidence:[],5);
-  renderDashboard(state, stats, latest, roadmap);
+  const next = getNextSession(now, state, roadmap);
+  renderDashboard(state, stats, latest, roadmap, evidence, next);
 }
 
 // Kick off
